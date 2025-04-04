@@ -1,15 +1,15 @@
 <div id="card">
   <div id="inside">
     <header class="left">
-      <div id="name">{{ name }}</div>
+      <div id="name">{{ monster.name }}</div>
       <div class="right">
-        <div id="hp">{{ hp }}</div>
+        <div id="hp">{{ monster.hp }}</div>
         <img class="energy icon" src="img/electric.png" />
       </div>
     </header>
     <figure id="art">
       <img src="img/pik.png" />
-      <figcaption>{{ figureCaption }}</figcaption>
+      <figcaption>{{ monster.figureCaption }}</figcaption>
     </figure>
     <div id="capacities">
       <div class="capacity">
@@ -19,12 +19,12 @@
             <img class="icon energy" src="img/electric.png" />
           </div>
 
-          <div class="name">{{ attackName }}</div>
-          <div class="damage">{{ attackStrengh }}</div>
+          <div class="name">{{ monster.attackName }}</div>
+          <div class="damage">{{ monster.attackStrengh }}</div>
         </div>
       </div>
       <div class="description">
-        {{ attackDescription }}
+        {{ monster.attackDescription }}
       </div>
     </div>
   </div>
