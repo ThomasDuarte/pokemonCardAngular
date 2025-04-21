@@ -3,6 +3,7 @@ import { MonsterListComponent } from './pages/monster-list/monster-list.componen
 import { MonsterComponent } from './pages/monster/monster.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoginComponent } from './pages/login/login.component';
+import { isLoggedInGuard } from './guards/is-logged-in.guard';
 //Défini les différents chemins d'accès
 export const routes: Routes = [
   {
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {
     path: 'home',
     component: MonsterListComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
     path: 'login',
@@ -23,11 +25,12 @@ export const routes: Routes = [
   {
     path: 'monster',
     children: [
-      { path: '', component: MonsterComponent },
+      { path: '', component: MonsterComponent, canActivate: [isLoggedInGuard] },
       {
         // Définit l'url monter/:id
         path: ':id',
         component: MonsterComponent,
+        canActivate: [isLoggedInGuard],
       },
     ],
   },
