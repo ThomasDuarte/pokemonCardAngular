@@ -4,15 +4,23 @@ import { PlayingCardComponent } from '../../components/playing-card/playing-card
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { Monster } from '../../models/monster.model';
 import { MonsterService } from '../../services/monster/monster.service';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-monster-list',
-  imports: [CommonModule, PlayingCardComponent, SearchBarComponent],
+  imports: [
+    CommonModule,
+    PlayingCardComponent,
+    SearchBarComponent,
+    MatButtonModule,
+  ],
   templateUrl: './monster-list.component.html',
   styleUrl: './monster-list.component.css',
 })
 export class MonsterListComponent {
-  monsterService = inject(MonsterService);
+  private monsterService = inject(MonsterService);
+  private router = inject(Router);
 
   monsters = signal<Monster[]>([]);
   search = model('');
@@ -28,8 +36,10 @@ export class MonsterListComponent {
   }
 
   addMonster() {
-    const genericMonster = new Monster();
-    this.monsterService.add(genericMonster);
-    this.monsters.set(this.monsterService.getAll());
+    this.router.navigate(['monster']);
+  }
+
+  openMonster(monster: Monster) {
+    this.router.navigate(['monster', monster.id]);
   }
 }
