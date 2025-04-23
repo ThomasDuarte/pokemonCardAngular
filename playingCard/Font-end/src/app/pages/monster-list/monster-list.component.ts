@@ -6,6 +6,7 @@ import { Monster } from '../../models/monster.model';
 import { MonsterService } from '../../services/monster/monster.service';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-monster-list',
@@ -22,18 +23,14 @@ export class MonsterListComponent {
   private monsterService = inject(MonsterService);
   private router = inject(Router);
 
-  monsters = signal<Monster[]>([]);
+  monsters = toSignal(this.monsterService.getAll());
   search = model('');
 
   filteredMonsters = computed(() => {
-    return this.monsters().filter((monster) =>
-      monster.name.includes(this.search())
+    return this.monsters()?.filter(
+      (monster) => monster.name.includes(this.search()) ?? []
     );
   });
-
-  constructor() {
-    this.monsters.set(this.monsterService.getAll());
-  }
 
   addMonster() {
     this.router.navigate(['monster']);

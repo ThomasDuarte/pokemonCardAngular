@@ -5,11 +5,9 @@ export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   let requestToSend = req;
   if (token) {
-    const headers = req.headers.set('Authorization', 'Token' + token);
     requestToSend = req.clone({
-      headers: headers,
+      headers: req.headers.set('Authorization', `Token ${token}`), // <-- Espace ajouté !
     });
   }
-
   return next(requestToSend);
 };
