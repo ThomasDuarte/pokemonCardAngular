@@ -1,0 +1,13 @@
+server:
+  error:
+    inclue-message: always
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+      authentification-database: admin
+      username: thomas
+      password: password
+      database: monsters
+      port: 27017
+      host: localhost
