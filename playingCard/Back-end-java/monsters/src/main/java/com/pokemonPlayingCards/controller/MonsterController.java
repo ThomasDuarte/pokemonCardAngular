@@ -1,9 +1,10 @@
 package com.pokemonPlayingCards.controller;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.pokemonPlayingCards.model.Monster;
 import com.pokemonPlayingCards.service.MonsterService;
@@ -19,26 +20,19 @@ public class MonsterController {
     }
 
     @GetMapping
-    public List<Monster> getAll() {
-        return service.getAll();
-    }
-
-    @PostMapping
-    public Monster create(@RequestBody Monster monster) {
-        return service.addMonster(monster);
+    public String index() {
+        return "Nous sommes sur la home page !";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Monster> getById(@PathVariable String id) {
-        Monster monster = service.getById(id);
-        return (monster != null) ?
-                ResponseEntity.ok(monster) :
-                ResponseEntity.notFound().build();
+    public ResponseEntity<?> getMonsterById(@PathVariable String id){
+        Monster monster= service.getById(id);
+        if(monster != null){
+            return ResponseEntity.ok(monster);
+        }else{
+            return ResponseEntity.status(404).body("Monster not found.");
+        }
     }
+    
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
-        boolean deleted = service.deleteById(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
-    }
 }
